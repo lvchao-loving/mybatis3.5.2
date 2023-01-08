@@ -178,7 +178,7 @@ public class Configuration {
   protected final Map<String, ParameterMap> parameterMaps = new StrictMap<>("Parameter Maps collection");
   // 主键生成器映射
   protected final Map<String, KeyGenerator> keyGenerators = new StrictMap<>("Key Generators collection");
-  // 载入的资源，例如映射文件资源
+  // 载入的资源，例如映射文件资源，将加载处理过的节点记录在此，然后处理后将不再进行加载处理。 例如：loadedResources.add("com/github/yeecode/mybatisdemo/UserMapper.xml");
   protected final Set<String> loadedResources = new HashSet<>();
   // SQL语句片段，即所有的<sql>节点
   protected final Map<String, XNode> sqlFragments = new StrictMap<>("XML fragments parsed from previous mappers");
@@ -197,6 +197,9 @@ public class Configuration {
     this.environment = environment;
   }
 
+  /**
+   * 1.登记 类名和类的注册器。2.登记 语言注册器
+   */
   public Configuration() {
     typeAliasRegistry.registerAlias("JDBC", JdbcTransactionFactory.class);
     typeAliasRegistry.registerAlias("MANAGED", ManagedTransactionFactory.class);

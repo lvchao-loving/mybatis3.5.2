@@ -95,14 +95,15 @@ public class XMLConfigBuilder extends BaseBuilder {
   }
 
   /**
-   * 解析配置文件的入口方法
+   * 解析配置文件的入口方法，这个方法也是核心方法
    * @return Configuration对象
    */
   public Configuration parse() {
-    // 不允许重复解析
+    // 不允许重复解析，通过构造函数默认设置成 false
     if (parsed) {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
     }
+    // 设置成 true，避免重复解析
     parsed = true;
     // 从根节点开展解析
     parseConfiguration(parser.evalNode("/configuration"));
@@ -426,9 +427,9 @@ public class XMLConfigBuilder extends BaseBuilder {
           String mapperClass = child.getStringAttribute("class");
           if (resource != null && url == null && mapperClass == null) {
             ErrorContext.instance().resource(resource);
-            // 获取文件的输入流
+            // 获取文件的输入流，当前的 resource 例如：com/github/yeecode/mybatisdemo/UserMapper.xml
             InputStream inputStream = Resources.getResourceAsStream(resource);
-            // 使用XMLMapperBuilder解析Mapper文件
+            // 使用 XMLMapperBuilder 解析 Mapper 文件
             XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
             mapperParser.parse();
           } else if (resource == null && url != null && mapperClass == null) {

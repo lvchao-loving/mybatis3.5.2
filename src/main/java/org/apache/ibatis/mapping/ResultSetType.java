@@ -26,7 +26,7 @@ public enum ResultSetType {
    *
    * @since 3.5.0
    */
-  // 默认
+  // 默认SqlSession
   DEFAULT(-1),
 
   // 结果集的游标只能向下滚动

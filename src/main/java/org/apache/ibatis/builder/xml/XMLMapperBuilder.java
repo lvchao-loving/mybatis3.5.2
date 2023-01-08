@@ -108,7 +108,7 @@ public class XMLMapperBuilder extends BaseBuilder {
    * 解析Mapper文件
    */
   public void parse() {
-    // 该节点是否被解析过
+    // 该节点是否被解析过，recource = "com/github/yeecode/mybatisdemo/UserMapper.xml"
     if (!configuration.isResourceLoaded(resource)) {
       // 处理mapper节点
       configurationElement(parser.evalNode("/mapper"));
@@ -134,7 +134,7 @@ public class XMLMapperBuilder extends BaseBuilder {
    */
   private void configurationElement(XNode context) {
     try {
-      // 读取当前Mapper文件的命名空间
+      // 读取当前Mapper文件的命名空间，namespace = "com.github.yeecode.mybatisdemo.UserMapper";
       String namespace = context.getStringAttribute("namespace");
       if (namespace == null || namespace.equals("")) {
         throw new BuilderException("Mapper's namespace cannot be empty");
